@@ -2,9 +2,11 @@
 package services
 
 import (
+	"context"
 	"log"
 	"tavern/aggregate"
 	"tavern/domain/customer"
+	"tavern/domain/customer/mongo"
 	"tavern/domain/product"
 	productmemory "tavern/domain/product/memory"
 	"tavern/memory"
@@ -97,4 +99,16 @@ func (o *OrderService) CreateOrder(customerID uuid.UUID, productIDs []uuid.UUID)
 	log.Printf("Customer: %s has ordered %d products", c.GetID(), len(products))
 
 	return price, nil
+}
+
+func WithMongoCustomerRepository(connectionString string) OrderConfiguration {
+	return func(os *OrderService) error {
+		// Create the mongo repo, if we needed parameters, such as connection strings they could be inputted here
+		cr, err := mongo.New(context.Background(), connectionString)
+		if err != nil {
+			return err
+		}
+		os.customers = cr
+		return nil
+	}
 }

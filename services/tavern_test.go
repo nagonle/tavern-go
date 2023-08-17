@@ -13,7 +13,9 @@ func Test_Tavern(t *testing.T) {
 	products := init_products(t)
 
 	os, err := NewOrderService(
-		WithMemoryCustomerRepository(),
+		//WithMemoryCustomerRepository(),
+		WithMongoCustomerRepository("mongodb://admin:password@localhost:27017"),
+		//WithMongoCustomerRepository("mongodb://admin:password@localhost:27017/?authMechanism=DEFAULT"),
 		WithMemoryProductRepository(products),
 	)
 	if err != nil {
