@@ -2,17 +2,17 @@ package main
 
 import (
 	"fmt"
-	servicetavern "tavern/services"
+	"tavern/services/tavern"
 
-	product "tavern/aggregate"
+	"tavern/domain/product"
 
 	//"tavern/domain/product"
-	order "tavern/services"
+	"tavern/services/order"
 
 	"github.com/google/uuid"
 )
 
-func main() {
+func mainCustom() {
 	products := productInventory()
 
 	os, err := order.NewOrderService(
@@ -25,8 +25,8 @@ func main() {
 	}
 
 	// Create tavern service
-	tavern, err := servicetavern.NewTavern(
-		servicetavern.WithOrderService(os))
+	tavern, err := tavern.NewTavern(
+		tavern.WithOrderService(os))
 	if err != nil {
 		panic(err)
 	}
@@ -45,6 +45,9 @@ func main() {
 	fmt.Println("uid:", cust)
 
 	order := []uuid.UUID{
+		products[0].GetID(),
+		products[0].GetID(),
+		products[0].GetID(),
 		products[0].GetID(),
 	}
 	// Execute Order
