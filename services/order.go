@@ -5,10 +5,10 @@ import (
 	"context"
 	"log"
 	"tavern/domain/customer"
+	"tavern/domain/customer/memory"
 	"tavern/domain/customer/mongo"
 	"tavern/domain/product"
 	productmemory "tavern/domain/product/memory"
-	"tavern/memory"
 
 	"github.com/google/uuid"
 )
