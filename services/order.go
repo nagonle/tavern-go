@@ -53,6 +53,7 @@ func WithCustomerRepository(cr customer.CustomerRepository) OrderConfiguration {
 func WithMemoryCustomerRepository() OrderConfiguration {
 	// Create the memory repo, if we needed parameters, such as connection strings they could be inputted here
 	cr := memory.New()
+	// TODO INITIALIZE MEMORY WITH CUSTOMERS
 	return WithCustomerRepository(cr)
 }
 
@@ -111,4 +112,21 @@ func WithMongoCustomerRepository(connectionString string) OrderConfiguration {
 		os.customers = cr
 		return nil
 	}
+}
+
+// AddCustomer will add a new customer and return the customerID
+func (o *OrderService) AddCustomer(name string) (uuid.UUID, error) {
+	c, err := aggregate.NewCustomer(name)
+
+	//c, err := customer.AddCustomer(name)
+	if err != nil {
+		return uuid.Nil, err
+	}
+	// Add to Repo
+	err = o.customers.Add(c)
+	if err != nil {
+		return uuid.Nil, err
+	}
+
+	return c.GetID(), nil
 }
