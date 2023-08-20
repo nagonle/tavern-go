@@ -1,7 +1,7 @@
 // Package aggregate
 // File: product.go
 // Product is an aggregate that represents a product.
-package aggregate
+package product
 
 import (
 	"errors"

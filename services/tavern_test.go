@@ -3,7 +3,7 @@ package services
 import (
 	"testing"
 
-	"tavern/aggregate"
+	"tavern/domain/customer"
 
 	"github.com/google/uuid"
 )
@@ -27,7 +27,7 @@ func Test_Tavern(t *testing.T) {
 		t.Error(err)
 	}
 
-	cust, err := aggregate.NewCustomer("Percy")
+	cust, err := customer.NewCustomer("Percy")
 	if err != nil {
 		t.Error(err)
 	}

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	servicetavern "tavern/services"
 
-	product "tavern/aggregate"
+	"tavern/domain/product"
 
 	//"tavern/domain/product"
 	order "tavern/services"
