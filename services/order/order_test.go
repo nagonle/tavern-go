@@ -1,10 +1,10 @@
-package services
+package order_test
 
 import (
 	"testing"
 
-	"tavern/domain/customer"
 	"tavern/domain/product"
+	"tavern/services/order"
 
 	"github.com/google/uuid"
 )
@@ -27,13 +27,14 @@ func init_products(t *testing.T) []product.Product {
 	}
 	return products
 }
+
 func TestOrder_NewOrderService(t *testing.T) {
 	// Create a few products to insert into in memory repo
 	products := init_products(t)
 
-	os, err := NewOrderService(
-		WithMemoryCustomerRepository(),
-		WithMemoryProductRepository(products),
+	os, err := order.NewOrderService(
+		order.WithMemoryCustomerRepository(),
+		order.WithMemoryProductRepository(products),
 	)
 
 	if err != nil {
@@ -41,12 +42,13 @@ func TestOrder_NewOrderService(t *testing.T) {
 	}
 
 	// Add Customer
-	cust, err := customer.NewCustomer("Percy")
-	if err != nil {
-		t.Error(err)
-	}
+	//cust, err := customer.NewCustomer("Percy")
+	//if err != nil {
+	//t.Error(err)
+	//}
 
-	err = os.customers.Add(cust)
+	//err = os.customers.Add(cust)
+	uid, err := os.AddCustomer("Percy")
 	if err != nil {
 		t.Error(err)
 	}
@@ -56,7 +58,8 @@ func TestOrder_NewOrderService(t *testing.T) {
 		products[0].GetID(),
 	}
 
-	_, err = os.CreateOrder(cust.GetID(), order)
+	//_, err = os.CreateOrder(cust.GetID(), order)
+	_, err = os.CreateOrder(uid, order)
 
 	if err != nil {
 		t.Error(err)

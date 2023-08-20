@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
-	servicetavern "tavern/services"
+	"tavern/services/tavern"
 
 	"tavern/domain/product"
 
 	//"tavern/domain/product"
-	order "tavern/services"
+	"tavern/services/order"
 
 	"github.com/google/uuid"
 )
@@ -25,8 +25,8 @@ func main() {
 	}
 
 	// Create tavern service
-	tavern, err := servicetavern.NewTavern(
-		servicetavern.WithOrderService(os))
+	tavern, err := tavern.NewTavern(
+		tavern.WithOrderService(os))
 	if err != nil {
 		panic(err)
 	}
