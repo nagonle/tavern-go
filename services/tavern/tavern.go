@@ -49,7 +49,7 @@ func (t *Tavern) Order(customer uuid.UUID, products []uuid.UUID) error {
 	if err != nil {
 		return err
 	}
-	log.Printf("Bill the Customer: %0.0f", price)
+	log.Printf("Bill the Customer: %.2f", price)
 
 	// Bill the customer
 	//err = t.BillingService.Bill(customer, price)

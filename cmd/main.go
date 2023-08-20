@@ -12,7 +12,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func main() {
+func mainCustom() {
 	products := productInventory()
 
 	os, err := order.NewOrderService(
@@ -45,6 +45,9 @@ func main() {
 	fmt.Println("uid:", cust)
 
 	order := []uuid.UUID{
+		products[0].GetID(),
+		products[0].GetID(),
+		products[0].GetID(),
 		products[0].GetID(),
 	}
 	// Execute Order
